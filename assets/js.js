@@ -41,6 +41,33 @@ const Questions = [
           c: "RequireJS",
         },
         correctAnswer: "Angular"
+      },
+      {
+        question: "What language is used to style Elements in HTML",
+        answers: {
+          a: "CSS",
+          b: "Javascript",
+          c: "Node",
+        },
+        correctAnswer: "CSS"
+      },
+      {
+        question: "Which one is a valid Integer",
+        answers: {
+          a: "3",
+          b: "3.6",
+          c: "124d1",
+        },
+        correctAnswer: "3"
+      },
+      {
+        question: "What index does an array start in js",
+        answers: {
+          a: "0",
+          b: "1",
+          c: "-1",
+        },
+        correctAnswer: "0"
       }
 ]
 
@@ -53,8 +80,8 @@ function CD(){
             timeleft--;
         }
         else if (timeleft===0){
-            mainEl.textContent= "GAME OVER"
             countdown.textContent= timeleft
+            endgame()
             clearInterval(timer)
         }
 
@@ -79,40 +106,37 @@ function button1pressed(){
     if (button1.textContent===Questions[Qnumber].correctAnswer){
         score++;
         result.textContent= "Correct"
-        setInterval(function(){
-            result.textContent=""
-        },1000)
         Qnumber++;
     }
     else{
         result.textContent="incorrect";
-        setInterval(function(){
-            result.textContent=""
-        },1000);
         Qnumber++;
     };
+    if (Qnumber===Questions.length){
+        endgame()
+        return null
+    }
     question.textContent=Questions[Qnumber].question;
     button1.textContent= Questions[Qnumber].answers.a;
     button2.textContent= Questions[Qnumber].answers.b;
     button3.textContent= Questions[Qnumber].answers.c;
+    
 
 };
 function button2pressed(){
     if (button2.textContent===Questions[Qnumber].correctAnswer){
         score++;
         result.textContent= "Correct"
-        setInterval(function(){
-            result.textContent=""
-        },1000)
         Qnumber++;
     }
     else{
         result.textContent="incorrect"
-        setInterval(function(){
-            result.textContent=""
-        },1000);
         Qnumber++;
     };
+    if (Qnumber===Questions.length){
+        endgame()
+        return null
+    }
     question.textContent=Questions[Qnumber].question;
     button1.textContent= Questions[Qnumber].answers.a;
     button2.textContent= Questions[Qnumber].answers.b;
@@ -122,18 +146,16 @@ function button3pressed(){
     if (button3.textContent===Questions[Qnumber].correctAnswer){
         score++;
         result.textContent= "Correct"
-        setInterval(function(){
-            result.textContent=""
-        },1000)
         Qnumber++;
     }
     else{
         result.textContent="incorrect"
-        setInterval(function(){
-            result.textContent=""
-        },1000);
         Qnumber++;
-    }
+    };
+    if (Qnumber===Questions.length){
+        endgame()
+        return null
+    };
     question.textContent=Questions[Qnumber].question;
     button1.textContent= Questions[Qnumber].answers.a;
     button2.textContent= Questions[Qnumber].answers.b;
@@ -149,3 +171,9 @@ button2.addEventListener("click",function(){
 button3.addEventListener("click",function(){
     button3pressed()
 });
+function endgame(){
+    listEl.remove()
+    question.textContent="GAME OVER";
+    result.textContent="Final Score:" + score;
+
+} 
